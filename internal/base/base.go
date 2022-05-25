@@ -33,13 +33,28 @@ var DefaultQueue = PendingKey(DefaultQueueName)
 
 // Global Redis keys.
 var (
-	GlobalPrefix  = "asynq:"                    // Prefix for all keys
-	AllServers    = GlobalPrefix + "servers"    // ZSET
-	AllWorkers    = GlobalPrefix + "workers"    // ZSET
-	AllSchedulers = GlobalPrefix + "schedulers" // ZSET
-	AllQueues     = GlobalPrefix + "queues"     // SET
-	CancelChannel = GlobalPrefix + "cancel"     // PubSub channel
+	GlobalPrefix = "asynq:" // Prefix for all keys
 )
+
+func AllServers() string {
+	return GlobalPrefix + "servers" // ZSET
+}
+
+func AllWorkers() string {
+	return GlobalPrefix + "workers" // ZSET
+}
+
+func AllSchedulers() string {
+	return GlobalPrefix + "schedulers" // ZSET
+}
+
+func AllQueues() string {
+	return GlobalPrefix + "queues" // SET
+}
+
+func CancelChannel() string {
+	return GlobalPrefix + "cancel" // PubSub channel
+}
 
 // TaskState denotes the state of a task.
 type TaskState int
