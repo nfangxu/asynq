@@ -92,6 +92,7 @@ func (s serverStateValue) String() string {
 
 // Config specifies the server's background-task processing behavior.
 type Config struct {
+	Prefix string
 	// Maximum number of concurrent processing of tasks.
 	//
 	// If set to a zero or negative value, NewServer will overwrite the value
@@ -399,6 +400,9 @@ func NewServer(r RedisConnOpt, cfg Config) *Server {
 	baseCtxFn := cfg.BaseContext
 	if baseCtxFn == nil {
 		baseCtxFn = context.Background
+	}
+	if prefix := cfg.Prefix; prefix != "" {
+		base.GlobalPrefix = prefix
 	}
 	n := cfg.Concurrency
 	if n < 1 {

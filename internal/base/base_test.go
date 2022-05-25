@@ -27,7 +27,7 @@ func TestTaskKey(t *testing.T) {
 		id    string
 		want  string
 	}{
-		{"default", id, fmt.Sprintf("asynq:{default}:t:%s", id)},
+		{"default", id, fmt.Sprintf(GlobalPrefix+"{default}:t:%s", id)},
 	}
 
 	for _, tc := range tests {
@@ -43,8 +43,8 @@ func TestQueueKey(t *testing.T) {
 		qname string
 		want  string
 	}{
-		{"default", "asynq:{default}:pending"},
-		{"custom", "asynq:{custom}:pending"},
+		{"default", GlobalPrefix + "{default}:pending"},
+		{"custom", GlobalPrefix + "{custom}:pending"},
 	}
 
 	for _, tc := range tests {
@@ -60,8 +60,8 @@ func TestActiveKey(t *testing.T) {
 		qname string
 		want  string
 	}{
-		{"default", "asynq:{default}:active"},
-		{"custom", "asynq:{custom}:active"},
+		{"default", GlobalPrefix + "{default}:active"},
+		{"custom", GlobalPrefix + "{custom}:active"},
 	}
 
 	for _, tc := range tests {
@@ -77,8 +77,8 @@ func TestLeaseKey(t *testing.T) {
 		qname string
 		want  string
 	}{
-		{"default", "asynq:{default}:lease"},
-		{"custom", "asynq:{custom}:lease"},
+		{"default", GlobalPrefix + "{default}:lease"},
+		{"custom", GlobalPrefix + "{custom}:lease"},
 	}
 
 	for _, tc := range tests {
@@ -94,8 +94,8 @@ func TestScheduledKey(t *testing.T) {
 		qname string
 		want  string
 	}{
-		{"default", "asynq:{default}:scheduled"},
-		{"custom", "asynq:{custom}:scheduled"},
+		{"default", GlobalPrefix + "{default}:scheduled"},
+		{"custom", GlobalPrefix + "{custom}:scheduled"},
 	}
 
 	for _, tc := range tests {
@@ -111,8 +111,8 @@ func TestRetryKey(t *testing.T) {
 		qname string
 		want  string
 	}{
-		{"default", "asynq:{default}:retry"},
-		{"custom", "asynq:{custom}:retry"},
+		{"default", GlobalPrefix + "{default}:retry"},
+		{"custom", GlobalPrefix + "{custom}:retry"},
 	}
 
 	for _, tc := range tests {
@@ -128,8 +128,8 @@ func TestArchivedKey(t *testing.T) {
 		qname string
 		want  string
 	}{
-		{"default", "asynq:{default}:archived"},
-		{"custom", "asynq:{custom}:archived"},
+		{"default", GlobalPrefix + "{default}:archived"},
+		{"custom", GlobalPrefix + "{custom}:archived"},
 	}
 
 	for _, tc := range tests {
@@ -145,8 +145,8 @@ func TestCompletedKey(t *testing.T) {
 		qname string
 		want  string
 	}{
-		{"default", "asynq:{default}:completed"},
-		{"custom", "asynq:{custom}:completed"},
+		{"default", GlobalPrefix + "{default}:completed"},
+		{"custom", GlobalPrefix + "{custom}:completed"},
 	}
 
 	for _, tc := range tests {
@@ -162,8 +162,8 @@ func TestPausedKey(t *testing.T) {
 		qname string
 		want  string
 	}{
-		{"default", "asynq:{default}:paused"},
-		{"custom", "asynq:{custom}:paused"},
+		{"default", GlobalPrefix + "{default}:paused"},
+		{"custom", GlobalPrefix + "{custom}:paused"},
 	}
 
 	for _, tc := range tests {
@@ -179,8 +179,8 @@ func TestProcessedTotalKey(t *testing.T) {
 		qname string
 		want  string
 	}{
-		{"default", "asynq:{default}:processed"},
-		{"custom", "asynq:{custom}:processed"},
+		{"default", GlobalPrefix + "{default}:processed"},
+		{"custom", GlobalPrefix + "{custom}:processed"},
 	}
 
 	for _, tc := range tests {
@@ -196,8 +196,8 @@ func TestFailedTotalKey(t *testing.T) {
 		qname string
 		want  string
 	}{
-		{"default", "asynq:{default}:failed"},
-		{"custom", "asynq:{custom}:failed"},
+		{"default", GlobalPrefix + "{default}:failed"},
+		{"custom", GlobalPrefix + "{custom}:failed"},
 	}
 
 	for _, tc := range tests {
@@ -214,9 +214,9 @@ func TestProcessedKey(t *testing.T) {
 		input time.Time
 		want  string
 	}{
-		{"default", time.Date(2019, 11, 14, 10, 30, 1, 1, time.UTC), "asynq:{default}:processed:2019-11-14"},
-		{"critical", time.Date(2020, 12, 1, 1, 0, 1, 1, time.UTC), "asynq:{critical}:processed:2020-12-01"},
-		{"default", time.Date(2020, 1, 6, 15, 02, 1, 1, time.UTC), "asynq:{default}:processed:2020-01-06"},
+		{"default", time.Date(2019, 11, 14, 10, 30, 1, 1, time.UTC), GlobalPrefix + "{default}:processed:2019-11-14"},
+		{"critical", time.Date(2020, 12, 1, 1, 0, 1, 1, time.UTC), GlobalPrefix + "{critical}:processed:2020-12-01"},
+		{"default", time.Date(2020, 1, 6, 15, 02, 1, 1, time.UTC), GlobalPrefix + "{default}:processed:2020-01-06"},
 	}
 
 	for _, tc := range tests {
@@ -233,9 +233,9 @@ func TestFailedKey(t *testing.T) {
 		input time.Time
 		want  string
 	}{
-		{"default", time.Date(2019, 11, 14, 10, 30, 1, 1, time.UTC), "asynq:{default}:failed:2019-11-14"},
-		{"custom", time.Date(2020, 12, 1, 1, 0, 1, 1, time.UTC), "asynq:{custom}:failed:2020-12-01"},
-		{"low", time.Date(2020, 1, 6, 15, 02, 1, 1, time.UTC), "asynq:{low}:failed:2020-01-06"},
+		{"default", time.Date(2019, 11, 14, 10, 30, 1, 1, time.UTC), GlobalPrefix + "{default}:failed:2019-11-14"},
+		{"custom", time.Date(2020, 12, 1, 1, 0, 1, 1, time.UTC), GlobalPrefix + "{custom}:failed:2020-12-01"},
+		{"low", time.Date(2020, 1, 6, 15, 02, 1, 1, time.UTC), GlobalPrefix + "{low}:failed:2020-01-06"},
 	}
 
 	for _, tc := range tests {
@@ -253,8 +253,8 @@ func TestServerInfoKey(t *testing.T) {
 		sid      string
 		want     string
 	}{
-		{"localhost", 9876, "server123", "asynq:servers:{localhost:9876:server123}"},
-		{"127.0.0.1", 1234, "server987", "asynq:servers:{127.0.0.1:1234:server987}"},
+		{"localhost", 9876, "server123", GlobalPrefix + "servers:{localhost:9876:server123}"},
+		{"127.0.0.1", 1234, "server987", GlobalPrefix + "servers:{127.0.0.1:1234:server987}"},
 	}
 
 	for _, tc := range tests {
@@ -273,8 +273,8 @@ func TestWorkersKey(t *testing.T) {
 		sid      string
 		want     string
 	}{
-		{"localhost", 9876, "server1", "asynq:workers:{localhost:9876:server1}"},
-		{"127.0.0.1", 1234, "server2", "asynq:workers:{127.0.0.1:1234:server2}"},
+		{"localhost", 9876, "server1", GlobalPrefix + "workers:{localhost:9876:server1}"},
+		{"127.0.0.1", 1234, "server2", GlobalPrefix + "workers:{127.0.0.1:1234:server2}"},
 	}
 
 	for _, tc := range tests {
@@ -291,8 +291,8 @@ func TestSchedulerEntriesKey(t *testing.T) {
 		schedulerID string
 		want        string
 	}{
-		{"localhost:9876:scheduler123", "asynq:schedulers:{localhost:9876:scheduler123}"},
-		{"127.0.0.1:1234:scheduler987", "asynq:schedulers:{127.0.0.1:1234:scheduler987}"},
+		{"localhost:9876:scheduler123", GlobalPrefix + "schedulers:{localhost:9876:scheduler123}"},
+		{"127.0.0.1:1234:scheduler987", GlobalPrefix + "schedulers:{127.0.0.1:1234:scheduler987}"},
 	}
 
 	for _, tc := range tests {
@@ -308,8 +308,8 @@ func TestSchedulerHistoryKey(t *testing.T) {
 		entryID string
 		want    string
 	}{
-		{"entry876", "asynq:scheduler_history:entry876"},
-		{"entry345", "asynq:scheduler_history:entry345"},
+		{"entry876", GlobalPrefix + "scheduler_history:entry876"},
+		{"entry345", GlobalPrefix + "scheduler_history:entry345"},
 	}
 
 	for _, tc := range tests {
@@ -355,35 +355,35 @@ func TestUniqueKey(t *testing.T) {
 			"default",
 			"email:send",
 			payload1,
-			fmt.Sprintf("asynq:{default}:unique:email:send:%s", checksum(payload1)),
+			fmt.Sprintf(GlobalPrefix+"{default}:unique:email:send:%s", checksum(payload1)),
 		},
 		{
 			"with unsorted keys",
 			"default",
 			"email:send",
 			payload2,
-			fmt.Sprintf("asynq:{default}:unique:email:send:%s", checksum(payload2)),
+			fmt.Sprintf(GlobalPrefix+"{default}:unique:email:send:%s", checksum(payload2)),
 		},
 		{
 			"with composite types",
 			"default",
 			"email:send",
 			payload3,
-			fmt.Sprintf("asynq:{default}:unique:email:send:%s", checksum(payload3)),
+			fmt.Sprintf(GlobalPrefix+"{default}:unique:email:send:%s", checksum(payload3)),
 		},
 		{
 			"with complex types",
 			"default",
 			"email:send",
 			payload4,
-			fmt.Sprintf("asynq:{default}:unique:email:send:%s", checksum(payload4)),
+			fmt.Sprintf(GlobalPrefix+"{default}:unique:email:send:%s", checksum(payload4)),
 		},
 		{
 			"with nil payload",
 			"default",
 			"reindex",
 			nil,
-			"asynq:{default}:unique:reindex:",
+			GlobalPrefix + "{default}:unique:reindex:",
 		},
 	}
 
@@ -404,12 +404,12 @@ func TestGroupKey(t *testing.T) {
 		{
 			qname: "default",
 			gkey:  "mygroup",
-			want:  "asynq:{default}:g:mygroup",
+			want:  GlobalPrefix + "{default}:g:mygroup",
 		},
 		{
 			qname: "custom",
 			gkey:  "foo",
-			want:  "asynq:{custom}:g:foo",
+			want:  GlobalPrefix + "{custom}:g:foo",
 		},
 	}
 
@@ -432,13 +432,13 @@ func TestAggregationSetKey(t *testing.T) {
 			qname: "default",
 			gname: "mygroup",
 			setID: "12345",
-			want:  "asynq:{default}:g:mygroup:12345",
+			want:  GlobalPrefix + "{default}:g:mygroup:12345",
 		},
 		{
 			qname: "custom",
 			gname: "foo",
 			setID: "98765",
-			want:  "asynq:{custom}:g:foo:98765",
+			want:  GlobalPrefix + "{custom}:g:foo:98765",
 		},
 	}
 
@@ -457,11 +457,11 @@ func TestAllGroups(t *testing.T) {
 	}{
 		{
 			qname: "default",
-			want:  "asynq:{default}:groups",
+			want:  GlobalPrefix + "{default}:groups",
 		},
 		{
 			qname: "custom",
-			want:  "asynq:{custom}:groups",
+			want:  GlobalPrefix + "{custom}:groups",
 		},
 	}
 
@@ -480,11 +480,11 @@ func TestAllAggregationSets(t *testing.T) {
 	}{
 		{
 			qname: "default",
-			want:  "asynq:{default}:aggregation_sets",
+			want:  GlobalPrefix + "{default}:aggregation_sets",
 		},
 		{
 			qname: "custom",
-			want:  "asynq:{custom}:aggregation_sets",
+			want:  GlobalPrefix + "{custom}:aggregation_sets",
 		},
 	}
 
